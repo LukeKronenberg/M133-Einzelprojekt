@@ -1,0 +1,85 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    background-color: orange;
+    text-align: center;
+}
+
+.Logo {
+    display: flex;
+    justify-content: center;
+    background-color: orange;
+    font-size: 100px;
+    width: 100%;
+    filter: drop-shadow(0 5px 5px black);
+}
+
+.Dorfladen {
+    padding: 20px;
+    margin: 5px;
+    color: white;
+    text-shadow: 5px 5px 5px #222;
+}
+
+.BBZW {
+    padding: 20px;
+    margin: 5px;
+    background-color: white;
+    color: orange;
+    text-shadow: 5px 5px 5px #444;
+}
+
+.ShoppingbasketParent{
+    display: flex;
+    justify-content: center;
+}
+
+.Shoppingbasket{
+    width: 200px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-style: solid;
+    border-color: #AA7500;
+    border-radius: 20px;
+    background-color: orange;
+    text-align: center;
+    font-size: 20px;
+    filter: drop-shadow(0 10px 10px black);
+    transition: all .1s ease-in-out;
+}
+
+.Shoppingbasket:hover{
+    transform: translateY(-2px);
+}
+
+.ProductsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #FFFA;
+}
+
+.ProductOverview {
+    padding: 10px;
+    background-color: gray;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 20px;
+    margin: 5px;
+    filter: drop-shadow(0 5px 5px black);
+}
+
+.ImageOverview {
+    max-width: 200px;
+    border-radius: 5%;
+}
+
+.BasePrice {
+    color: #B00000;
+}

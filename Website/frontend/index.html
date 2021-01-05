@@ -3,10 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
     <title>Document</title>
+    <link rel="icon" href="">
 </head>
 <body>
-    <div>Hello</div>
+    <div class="Logo">
+        <div class="Dorfladen">Dorfladen</div>
+        <div class="BBZW">BBZW</div>
+    </div>
+    <div class="ShoppingbasketParent">
+        <div class="Shoppingbasket">🛒Warenkorb🛒</div>
+    </div>
+    <div id="ProductsContainer" class="ProductsContainer">
+
+    </div>
+    <footer>
+        <h1>@ Luke Kronenberg M121</h1>
+    </footer>
 </body>
-<script src="script.js"></script>
+<script type="module">
+    import { LoadProducts } from "./script1.js";
+    LoadProducts();
+</script>
+<script src="./script2.js"></script>
 </html>
