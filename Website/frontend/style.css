@@ -1,6 +1,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
+    background-color: #DDD;
 }
 
 footer{
@@ -29,17 +30,17 @@ footer{
 .BBZW {
     padding: 20px;
     margin: 5px;
-    background-color: white;
+    background-color: #FFF;
     color: orange;
     text-shadow: 5px 5px 5px #444;
 }
 
-.ShoppingbasketParent{
+.ShoppingbasketButtonParent{
     display: flex;
     justify-content: center;
 }
 
-.Shoppingbasket{
+.ShoppingbasketButton{
     width: 200px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -54,7 +55,7 @@ footer{
     transition: all .1s ease-in-out;
 }
 
-.Shoppingbasket:hover{
+.ShoppingbasketButton:hover{
     transform: translateY(-2px);
 }
 
@@ -62,11 +63,14 @@ footer{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-color: #FFFA;
     margin-bottom: 10px;
 }
+.ProductOverviewContainer img{
+    max-width: 200px;
+    border-radius: 5%;
+}
 
-.ProductOverview {
+.ProductOverviewElement {
     padding: 10px;
     background-color: gray;
     border-width: 2px;
@@ -77,15 +81,37 @@ footer{
     transition: background-color .1s ease-in-out;
 }
 
-.ProductOverview:hover{
+.ProductOverviewElement:hover{
     background-color: #AAA;
 }
 
-.ImageOverview {
-    max-width: 200px;
-    border-radius: 5%;
+.ProductDetail{
+    margin: 20px 0 20px 0;
+    display: flex;
+    justify-content: center;
 }
 
-.BasePrice {
+.ProductDetailTextParent{
+    margin-left: 20px;
+    position: relative;
+    top: 50%;
+    font-size: 2em;
+}
+
+.ProductDetail img{
+    width: 500px;
+    height: 500px;
+    border-radius: 2em;
+}
+
+.BasePrice{
     color: #B00000;
+}
+
+.ProductName{
+    font-weight: bold;
+}
+
+.ProductDetailTextParent .ProductName{
+    color: orange;
 }

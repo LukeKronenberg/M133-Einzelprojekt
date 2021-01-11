@@ -1,8 +1,13 @@
 import { Application, send } from "https://deno.land/x/oak/mod.ts";
 import router from "./backend/router.ts";
+import { Session } from "https://deno.land/x/session/mod.ts";
 
-const app = new Application();
 const port: number = 8000;
+const app = new Application();
+
+const session = new Session({ framework: "oak" });
+await session.init();
+app.use(session.use()(session));
 
 app.use(router.routes());
 app.use(router.allowedMethods());
