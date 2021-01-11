@@ -8,18 +8,24 @@
     <link rel="icon" href="">
 </head>
 <body>
-    <div class="Logo">
+    <div class="Logo" onclick="ChangeView(ProductOverviewContainer, ``)">
         <div class="Dorfladen">Dorfladen</div>
         <div class="BBZW">BBZW</div>
     </div>
     <div class="ShoppingbasketParent">
-        <div class="Shoppingbasket">🛒Warenkorb🛒</div>
+        <div class="Shoppingbasket" onclick="ChangeView(ShopingBasketContainer, ``)">🛒Warenkorb🛒</div>
     </div>
-    <div id="ProductsContainer" class="ProductsContainer">
+    <div id="ProductOverviewContainer" class="ProductOverviewContainer">
+
+    </div>
+    <div id="ProductDetailContainer" style="display: none;">
+
+    </div>
+    <div id="ShopingBasketContainer" style="display: none;">
 
     </div>
     <footer>
-        <h1>@ Luke Kronenberg M121</h1>
+        <h1>Luke Kronenberg M121</h1>
     </footer>
 </body>
 <script type="module">

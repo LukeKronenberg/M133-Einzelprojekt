@@ -58,11 +58,12 @@ footer{
     transform: translateY(-2px);
 }
 
-.ProductsContainer {
+.ProductOverviewContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     background-color: #FFFA;
+    margin-bottom: 10px;
 }
 
 .ProductOverview {
@@ -73,6 +74,11 @@ footer{
     border-radius: 20px;
     margin: 5px;
     filter: drop-shadow(0 5px 5px black);
+    transition: background-color .1s ease-in-out;
+}
+
+.ProductOverview:hover{
+    background-color: #AAA;
 }
 
 .ImageOverview {
