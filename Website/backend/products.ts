@@ -1,7 +1,7 @@
 import { v4 } from "https://deno.land/std/uuid/mod.ts";
-import { Product } from "./interfaces.ts";
+import { Product, BasketProduct } from "./interfaces.ts";
 
-var products: Product[] = [
+export const products: Product[] = [
     {
         "id": v4.generate(),
         "name": "Nektarinen gelb",
@@ -84,4 +84,13 @@ var products: Product[] = [
     }
 ]
 
-export default products;
+var basket: BasketProduct[] = [];
+
+for(const p of products){
+    basket.push({
+        id: p.id,
+        number: 0
+    })
+}
+
+export var basketTemplate = basket;

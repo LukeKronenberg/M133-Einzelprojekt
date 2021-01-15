@@ -6,3 +6,8 @@ export interface Product {
     priceBase: number,
     imageName: string
 }
+
+export interface BasketProduct{
+    id: string,
+    number: number
+}

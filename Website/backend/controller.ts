@@ -1,26 +1,34 @@
 import { v4 } from "https://deno.land/std/uuid/mod.ts";
-import { Product } from "./interfaces.ts";
-import products from "./products.ts";
+import { Product, BasketProduct } from "./interfaces.ts";
+import { products, basketTemplate } from "./products.ts";
 
 export default {
-    allProducts: (ctx: any) => {
-        ctx.response.status = 200;
-        ctx.response.body = {
+    allProducts: (context: any) => {
+        context.response.status = 200;
+        context.response.body = {
             success: true,
             products: products
         }
     },
-    AddProductById: async(ctx: any) => {
-        console.log(ctx.state)
-        await ctx.state.session.set("Basket", 0);
-        
+    AddProductById: async(context: any) => {
+        if (await context.state.session.get("basket") === undefined) {
+            await context.state.session.set("basket", basketTemplate);                   
+        }
 
-        /* await ctx.state.session.set("Basket", (await ctx.state.session.get("Basket")).push(
-            products.filter(product => product.id !== ctx.params.id)
-        )); */
+        var currentBasket = await context.state.session.get("basket");
+        for(var bp of currentBasket){
+            if(bp.id == context.params.id){
+                bp.number++;
+            }
+        }
 
-         ctx.response.body = {
+        await context.state.session.set("basket", currentBasket);
+
+        console.log(await context.state.session.get("basket"));
+
+         context.response.body = {
             success: true,
+            basket: currentBasket
         } 
     },
 }

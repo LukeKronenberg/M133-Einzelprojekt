@@ -1,5 +1,6 @@
 const ProductOverviewContainer = document.getElementById("ProductOverviewContainer");
 const ShopingBasketContainer = document.getElementById("ShopingBasketContainer");
+const ShopingBasketButton = document.getElementsByClassName("ShoppingbasketButton")[0];
 const ProductDetailContainer = document.getElementById("ProductDetailContainer");
 const ProductDetailImage = document.getElementById("ProductDetailImage");
 const ProductDetailName = document.getElementById("ProductDetailName");
@@ -8,7 +9,6 @@ const ProductDetailPriceCurrent = document.getElementById("ProductDetailPriceCur
 const ProductDetailPriceBase = document.getElementById("ProductDetailPriceBase");
 
 const Products = [];
-GetProducts();
 ProductsInBasket = [];
 
 async function GetProducts() {
@@ -23,6 +23,8 @@ async function GetProducts() {
             imageName: Product.imageName
         })
     }
+    ProductsInBasket = (await (await fetch(`/AddToBasket/yes`, { method: "POST" })).json()).basket;
+    UpdateBasketButton();
 }
 
 function ChangeView(targetView, ProductId) {
@@ -46,8 +48,23 @@ function ChangeView(targetView, ProductId) {
     }
 }
 
+async function AddToBasket(ProductId){
+    ProductsInBasket = (await (await fetch(`/AddToBasket/${ProductId}`, { method: "POST" })).json()).basket;
+    UpdateBasketButton();
+}
+
+function UpdateBasketButton(){
+    var value = 0;
+    for(const p of ProductsInBasket){
+        value += p.number;
+    }
+    ShopingBasketButton.innerHTML = `🛒Warenkorb🛒&#10;&#13;Items: ${value}`;
+}
+
 function UpdateShopingBasket() {
     if (ProductsInBasket.length == 0) {
         ShopingBasketContainer.innerHTML = "empty";
     }
 }
+
+GetProducts();
