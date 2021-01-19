@@ -8,6 +8,7 @@ const ProductDetailName = document.getElementById("ProductDetailName");
 const ProductDetailDescription = document.getElementById("ProductDetailDescription");
 const ProductDetailPriceCurrent = document.getElementById("ProductDetailPriceCurrent");
 const ProductDetailPriceBase = document.getElementById("ProductDetailPriceBase");
+const OrderForm = document.getElementById("OrderForm");
 
 const Products = [];
 ProductsInBasket = [];
@@ -26,7 +27,6 @@ async function GetProducts() {
     }
     ProductsInBasket = (await (await fetch(`/AddToBasket/null`, { method: "POST" })).json()).basket;
     UpdateBasketButton();
-    console.log(response)
     if (response.userview[0] == 0) {
         ChangeView(ProductOverviewContainer, '');
     } else if (response.userview[0] == 1) {
@@ -82,7 +82,7 @@ function UpdateBasketButton() {
         Items += p.number;
         Price += p.priceCurrent * p.number;
     }
-    ShopingBasketButton.innerHTML = `🛒Warenkorb🛒 <br>Items: ${Items} <br>Price: ${Math.round(Price * 100) / 100}`;
+    ShopingBasketButton.innerHTML = `🛒Warenkorb🛒 <br>Items: ${Items} <br>Price: ${Price.toFixed(2)}.-`;
 }
 
 function UpdateShopingBasket() {
@@ -95,8 +95,8 @@ function UpdateShopingBasket() {
                     <img src="./productImages/${p.imageName}"/>
                     <div class="ProductBasketTextParent">
                         <div class="ProductName">${p.name}</div>
-                        <div>${p.priceCurrent}</div>
-                        <div class="BasePrice"><strike>${p.priceBase}</strike></div>
+                        <div>${p.priceCurrent.toFixed(2)}</div>
+                        <div class="BasePrice"><strike>${p.priceBase.toFixed(2)}</strike></div>
                         <div class="ShopingBasketProductNumberContainer">
                             <div onclick="ChangeBasket(-1,'${p.id}',this.parentElement)">➖</div>
                             <div>Number: ${p.number}</div>
@@ -122,7 +122,6 @@ function ChangeBasket(value, id, element) {
                 p.number = 0;
                 element.parentElement.parentElement.remove();
             }
-            console.log(JSON.stringify(ProductsInBasket))
             fetch("/UpdateBasket", {
                 method: "PUT",
                 headers: { 'Content-Type': 'application/json' },
@@ -132,6 +131,20 @@ function ChangeBasket(value, id, element) {
     }
 
     element.querySelectorAll("div")[1].innerText = "Number: " + (parseInt(element.querySelectorAll("div")[1].innerText.replace("Number: ", "")) + value);
+}
+
+async function SubmitForm(){
+    var response = await fetch(`/FormSubmission`, {
+        method: "POST",
+        body: JSON.stringify([
+            OrderForm.querySelectorAll("input")[0].value,
+            OrderForm.querySelectorAll("input")[1].value,
+            OrderForm.querySelectorAll("input")[2].value
+        ])
+    })
+    if ((await(await response).json()).success) {
+        console.log("pog")
+    }
 }
 
 GetProducts();

@@ -135,10 +135,16 @@ footer{
     text-overflow: ellipsis;
 }
 
+.ShopingBasketParent{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .ProductBasketElement{
     margin: 10px;
     padding: 5px;
-    display: inline-flex;
+    display: flex;
     justify-content: center;
     border: gray;
     border-style: solid;
@@ -151,9 +157,22 @@ footer{
 }
 
 .ProductBasketElement img{
-    max-width: 100px;
+    max-height: 120px;
+    border-radius: 5px;
 }
 
 .ShopingBasketProductNumberContainer{
+    
+}
+
+.OrderForm{
+    display: block;
+    justify-content: center;
+    
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.OrderForm form{
     
 }

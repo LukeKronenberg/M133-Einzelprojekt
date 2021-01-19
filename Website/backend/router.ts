@@ -8,5 +8,6 @@ router
     .post("/AddToBasket/:id", Controller.AddProductById)
     .put("/UpdateBasket", Controller.UpdateBasket)
     .post("/UpdateUserView", Controller.UpdateUserView)
+    .post("/FormSubmission", Controller.FormSubmission)
 
 export default router;

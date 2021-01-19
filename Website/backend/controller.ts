@@ -17,7 +17,7 @@ export default {
             await context.state.session.set("basket", basketTemplate);
         }
 
-        var currentBasket = await context.state.session.get("basket");
+        var currentBasket: BasketProduct[] = await context.state.session.get("basket");
 
         for (var p of currentBasket) {
             if (p.id == context.params.id) {
@@ -32,7 +32,6 @@ export default {
         }
     },
     UpdateBasket: async (context: any) => {
-        console.log(await context.request.body().value);
         await context.state.session.set("basket", await context.request.body().value);
 
         context.response.body = {
@@ -43,6 +42,20 @@ export default {
         await context.state.session.set("UserView", await context.request.body().value);
         context.response.body = {
             success: true
+        }
+    },
+    FormSubmission: async (context: any) => {
+        var body = await context.request.body().value;
+        console.log(body[1])
+        if (body[0] != "" && body[1] != "" && body[2] != "") {
+            context.state.session.set("basket", basketTemplate)
+            context.response.body = {
+                success: true
+            }
+        } else {
+            context.response.body = {
+                success: false
+            }
         }
     }
 }
