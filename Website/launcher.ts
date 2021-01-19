@@ -28,4 +28,4 @@ app.addEventListener("listen", ({ secure, hostname, port }) => {
     console.log(`Listening on: ${port}`);
 });
 
-await app.listen({ port });
+app.listen({ port });

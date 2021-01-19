@@ -86,10 +86,15 @@ export const products: Product[] = [
 
 var basket: BasketProduct[] = [];
 
-for(const p of products){
+for (const p of products) {
     basket.push({
+        number: 0,
         id: p.id,
-        number: 0
+        name: p.name,
+        description: p.description,
+        priceCurrent: p.priceCurrent,
+        priceBase: p.priceBase,
+        imageName: p.imageName
     })
 }
 

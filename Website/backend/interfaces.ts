@@ -8,6 +8,12 @@ export interface Product {
 }
 
 export interface BasketProduct{
+    
+    number: number,
     id: string,
-    number: number
+    name: string,
+    description: string,
+    priceCurrent: number,
+    priceBase: number,
+    imageName: string
 }

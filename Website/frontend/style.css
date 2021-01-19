@@ -112,7 +112,6 @@ footer{
 .ProductDetailTextParent{
     margin-left: 20px;
     position: relative;
-    top: 50%;
     font-size: 2em;
 }
 
@@ -134,4 +133,27 @@ footer{
 .ProductDetailTextParent .ProductName{
     color: orange;
     text-overflow: ellipsis;
+}
+
+.ProductBasketElement{
+    margin: 10px;
+    padding: 5px;
+    display: inline-flex;
+    justify-content: center;
+    border: gray;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+}
+
+.ProductBasketTextParent{
+    margin-left: 10px;
+}
+
+.ProductBasketElement img{
+    max-width: 100px;
+}
+
+.ShopingBasketProductNumberContainer{
+    
 }

@@ -1,5 +1,6 @@
 const ProductOverviewContainer = document.getElementById("ProductOverviewContainer");
 const ShopingBasketContainer = document.getElementById("ShopingBasketContainer");
+const ShopingBasketProducts = document.getElementById("ShopingBasketProducts");
 const ShopingBasketButton = document.getElementsByClassName("ShoppingbasketButton")[0];
 const ProductDetailContainer = document.getElementById("ProductDetailContainer");
 const ProductDetailImage = document.getElementById("ProductDetailImage");
@@ -23,14 +24,35 @@ async function GetProducts() {
             imageName: Product.imageName
         })
     }
-    ProductsInBasket = (await (await fetch(`/AddToBasket/yes`, { method: "POST" })).json()).basket;
+    ProductsInBasket = (await (await fetch(`/AddToBasket/null`, { method: "POST" })).json()).basket;
     UpdateBasketButton();
+    console.log(response)
+    if (response.userview[0] == 0) {
+        ChangeView(ProductOverviewContainer, '');
+    } else if (response.userview[0] == 1) {
+        ChangeView(ProductDetailContainer, `${response.userview[1]}`);
+    } else {
+        ChangeView(ShopingBasketContainer, '');
+    }
 }
 
 function ChangeView(targetView, ProductId) {
     ProductOverviewContainer.style.display = "none";
     ProductDetailContainer.style.display = "none";
     ShopingBasketContainer.style.display = "none";
+
+    var targetViewNumber = 0;
+    if (targetView == ProductDetailContainer) {
+        targetViewNumber = 1;
+    } else if (targetView == ShopingBasketContainer) {
+        targetViewNumber = 2;
+    }
+
+    fetch(`/UpdateUserView`, {
+        method: "POST",
+        body: JSON.stringify([targetViewNumber, ProductId.replace(`'`, ``)]),
+        headers: { 'Content-Type': 'application/json' }
+    })
 
     targetView.style.display = "";
     if (targetView.id == "ProductDetailContainer") {
@@ -48,23 +70,68 @@ function ChangeView(targetView, ProductId) {
     }
 }
 
-async function AddToBasket(ProductId){
+async function AddToBasket(ProductId) {
     ProductsInBasket = (await (await fetch(`/AddToBasket/${ProductId}`, { method: "POST" })).json()).basket;
     UpdateBasketButton();
 }
 
-function UpdateBasketButton(){
-    var value = 0;
-    for(const p of ProductsInBasket){
-        value += p.number;
+function UpdateBasketButton() {
+    var Items = 0;
+    var Price = 0;
+    for (const p of ProductsInBasket) {
+        Items += p.number;
+        Price += p.priceCurrent * p.number;
     }
-    ShopingBasketButton.innerHTML = `🛒Warenkorb🛒&#10;&#13;Items: ${value}`;
+    ShopingBasketButton.innerHTML = `🛒Warenkorb🛒 <br>Items: ${Items} <br>Price: ${Math.round(Price * 100) / 100}`;
 }
 
 function UpdateShopingBasket() {
-    if (ProductsInBasket.length == 0) {
-        ShopingBasketContainer.innerHTML = "empty";
+    ShopingBasketProducts.innerHTML = "";
+    var TotalPrice = 0;
+    for (const p of ProductsInBasket) {
+        if (p.number > 0) {
+            ShopingBasketProducts.insertAdjacentHTML('afterbegin',
+                `<div class="ProductBasketElement">
+                    <img src="./productImages/${p.imageName}"/>
+                    <div class="ProductBasketTextParent">
+                        <div class="ProductName">${p.name}</div>
+                        <div>${p.priceCurrent}</div>
+                        <div class="BasePrice"><strike>${p.priceBase}</strike></div>
+                        <div class="ShopingBasketProductNumberContainer">
+                            <div onclick="ChangeBasket(-1,'${p.id}',this.parentElement)">➖</div>
+                            <div>Number: ${p.number}</div>
+                            <div onclick="ChangeBasket(1,'${p.id}',this.parentElement)">➕</div>
+                        </div>
+                    </div>
+                </div>`
+            );
+            TotalPrice += p.priceCurrent;
+        }
     }
+    if (TotalPrice == 0) {
+        ShopingBasketProducts.innerHTML = "<div>Shopping Cart empty</div>";
+    }
+}
+
+function ChangeBasket(value, id, element) {
+    for (var p of ProductsInBasket) {
+        if (p.id == id) {
+            p.number += value;
+            UpdateBasketButton();
+            if (p.number <= 0) {
+                p.number = 0;
+                element.parentElement.parentElement.remove();
+            }
+            console.log(JSON.stringify(ProductsInBasket))
+            fetch("/UpdateBasket", {
+                method: "PUT",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(ProductsInBasket),
+            });
+        }
+    }
+
+    element.querySelectorAll("div")[1].innerText = "Number: " + (parseInt(element.querySelectorAll("div")[1].innerText.replace("Number: ", "")) + value);
 }
 
 GetProducts();

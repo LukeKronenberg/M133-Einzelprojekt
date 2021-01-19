@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <title>Document</title>
 </head>
+
 <body>
-    <div class="Logo" onclick="ChangeView(ProductOverviewContainer, ``)">
+    <div class="Logo" onclick="ChangeView(ProductOverviewContainer, '')">
         <div class="Dorfladen">Dorfladen</div>
         <div class="BBZW">BBZW</div>
     </div>
     <div class="ShoppingbasketButtonParent">
-        <div class="ShoppingbasketButton" onclick="ChangeView(ShopingBasketContainer, ``)"></div>
+        <div class="ShoppingbasketButton" onclick="ChangeView(ShopingBasketContainer, '')"></div>
     </div>
     <div id="ProductOverviewContainer" class="ProductOverviewContainer">
 
@@ -27,10 +29,12 @@
         </div>
     </div>
     <div id="ShopingBasketContainer" style="display: none;">
+        <div id="ShopingBasketProducts">
 
+        </div>
     </div>
     <footer>
-        <h1>Luke Kronenberg M121</h1>
+        <h1>Fisch</h1>
     </footer>
 </body>
 <script type="module">
@@ -39,4 +43,5 @@
     LoadProducts();
 </script>
 <script src="./script2.js"></script>
+
 </html>
